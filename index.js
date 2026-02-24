@@ -92,15 +92,31 @@
         if (timezone === 'local') {
           return { hours: now.getHours(), minutes: now.getMinutes(), seconds: now.getSeconds(), now };
         }
-        const parts = new Intl.DateTimeFormat('en-US', {
-          timeZone: timezone,
-          hour12: false,
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit'
-        }).formatToParts(now);
-        const p = Object.fromEntries(parts.filter(x => x.type !== 'literal').map(x => [x.type, Number(x.value)]));
-        return { hours: p.hour, minutes: p.minute, seconds: p.second, now };
+       
+        try {
+          const dtf = new Intl.DateTimeFormat('en-US', {
+            timeZone: timezone,
+            hour12: false,
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+          });
+
+                    const formatted = dtf.format(now);
+          const m = formatted.match(/(\d{1,2}):?(\d{2}):?(\d{2})/);
+          if (m) {
+            return { hours: Number(m[1]), minutes: Number(m[2]), seconds: Number(m[3]), now };
+          }
+          const parts = dtf.formatToParts(now);
+          const p = Object.fromEntries(parts.filter(x => x.type !== 'literal').map(x => [x.type, Number(x.value)]));
+          if (p.hour != null && !Number.isNaN(p.hour)) {
+            return { hours: p.hour, minutes: p.minute, seconds: p.second, now };
+          }
+        } catch (e) {
+       console.warn('Timezone parsing fallback triggered, using local time as fallback', e);
+        }
+
+        return { hours: now.getHours(), minutes: now.getMinutes(), seconds: now.getSeconds(), now };
       }
 
       updateDigitalTime() {
@@ -118,8 +134,7 @@
         if (this.prevSecond !== -1 && seconds !== this.prevSecond) this.playTickSound();
         this.prevSecond = seconds;
 
-        // angles: 0 at 12 o'clock -> convert so 0° points right, subtract 90°
-        const secondsDeg = (seconds / 60) * 360 - 90;
+       const secondsDeg = (seconds / 60) * 360 - 90;
         const minutesDeg = (minutes / 60) * 360 + (seconds / 60) * 6 - 90;
         const hoursDeg = ((hours % 12) / 12) * 360 + (minutes / 60) * 30 + (seconds / 3600) * 30 - 90;
 
