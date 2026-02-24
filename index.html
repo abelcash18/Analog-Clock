@@ -16,7 +16,8 @@
   </button>
 
   <div class="position-absolute top-0 start-0 m-3">
-    <select class="form-select form-select-sm bg-transparent text-white border-light" id="timezoneSelect" style="width: auto;">
+    <label for="timezoneSelect" class="visually-hidden">Timezone</label>
+    <select class="form-select form-select-sm bg-transparent text-white border-light timezone-select" id="timezoneSelect">
       <option value="local">Local Time</option>
       <option value="America/New_York">New York (EST)</option>
       <option value="America/Los_Angeles">Los Angeles (PST)</option>
@@ -31,19 +32,16 @@
   <div class="clock-container shadow-lg">
     <div class="clock-face">
 
-      <div class="number" ><span>12</span></div>
-      <div class="number" ><span>3</span></div>
-      <div class="number" ><span>6</span></div>
-      <div class="number" ><span>9</span></div>
+        <div id="numbers"></div>
 
-      <div class="marker" id="markers"></div>
+        <div class="marker" id="markers"></div>
 
-      <div class="hand hour-hand"   id="hour"></div>
-      <div class="hand minute-hand" id="minute"></div>
-      <div class="hand second-hand" id="second"></div>
+        <div class="hand hour-hand"   id="hour"></div>
+        <div class="hand minute-hand" id="minute"></div>
+        <div class="hand second-hand" id="second"></div>
 
-      <div class="center-dot"></div>
-    </div>
+        <div class="center-dot"></div>
+      </div>
   </div>
 
   <div class="text-center mt-4 fs-4" id="digital"></div>
