@@ -7,6 +7,17 @@ body {
       font-family: 'Segoe UI', system-ui, sans-serif;
       color: #fff;
       overflow: hidden;
+      transition: background 0.5s ease;
+    }
+
+    /* Light mode gradient */
+    body.light-mode {
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+    }
+
+    /* Dark mode gradient */
+    body.dark-mode {
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
     }
 
     .clock-container {

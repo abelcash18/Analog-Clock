@@ -11,6 +11,25 @@
         <link rel="stylesheet" href="index.css">
 </head>
 <body>
+  <!-- Dark mode toggle button -->
+  <button class="btn btn-outline-light position-absolute top-0 end-0 m-3" id="darkModeToggle">
+    <span id="darkModeIcon">🌙</span> Dark Mode
+  </button>
+
+  <!-- Timezone selector -->
+  <div class="position-absolute top-0 start-0 m-3">
+    <select class="form-select form-select-sm bg-transparent text-white border-light" id="timezoneSelect" style="width: auto;">
+      <option value="local">Local Time</option>
+      <option value="America/New_York">New York (EST)</option>
+      <option value="America/Los_Angeles">Los Angeles (PST)</option>
+      <option value="Europe/London">London (GMT)</option>
+      <option value="Europe/Paris">Paris (CET)</option>
+      <option value="Asia/Tokyo">Tokyo (JST)</option>
+      <option value="Asia/Kolkata">India (IST)</option>
+      <option value="Australia/Sydney">Sydney (AEST)</option>
+    </select>
+  </div>
+
   <div class="clock-container shadow-lg">
     <div class="clock-face">
 
@@ -20,13 +39,8 @@
       <div class="number" style="transform: rotate(180deg);"><span>6</span></div>
       <div class="number" style="transform: rotate(270deg);"><span>9</span></div>
 
-      <!-- Minute markers -->
-      <div class="marker">
-        <!-- You can generate 60 dynamically, but for simplicity we use CSS -->
-        <div class="marker-line major" style="transform: rotate(0deg);"></div>
-        <div class="marker-line" style="transform: rotate(6deg);"></div>
-        <div class="marker-line" style="transform: rotate(12deg);"></div>
-        </div>
+      <!-- Minute markers - will be generated dynamically via JS -->
+      <div class="marker" id="markers"></div>
 
       <div class="hand hour-hand"   id="hour"></div>
       <div class="hand minute-hand" id="minute"></div>
@@ -35,6 +49,14 @@
       <div class="center-dot"></div>
     </div>
   </div>
+
+  <!-- Digital time display -->
+  <div class="text-center mt-4 fs-4" id="digital"></div>
+
+  <!-- Tick sound audio element -->
+  <audio id="tick-sound" preload="auto">
+    <source src="data:audio/wav;base64,UklGRl9vT1910IBAAAAABAAEAQB8XQVZFZmAAEAfAAABAAgAZGF0YU" type="audio/wav">
+  </audio>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
