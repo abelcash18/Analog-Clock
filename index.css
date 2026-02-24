@@ -1,0 +1,131 @@
+body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .clock-container {
+      position: relative;
+      width: 380px;
+      height: 380px;
+      background: rgba(255, 255, 255, 0.07);
+      border-radius: 50%;
+      box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.45),
+        inset 0 0 20px rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      padding: 20px;
+    }
+
+    .clock-face {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      position: relative;
+      background: transparent;
+    }
+
+    .hand {
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform-origin: bottom center;
+      border-radius: 10px;
+      transition: transform 0.08s cubic-bezier(0.4, 2.0, 0.2, 1.0); /* smooth overshoot */
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+
+    .hour-hand {
+      width: 8px;
+      height: 100px;
+      background: linear-gradient(to top, #ff6b6b, #feca57);
+      transform: translateX(-50%) rotate(0deg);
+      border-radius: 4px 4px 0 0;
+    }
+
+    .minute-hand {
+      width: 6px;
+      height: 130px;
+      background: linear-gradient(to top, #4facfe, #00f2fe);
+      transform: translateX(-50%) rotate(0deg);
+      border-radius: 3px 3px 0 0;
+    }
+
+    .second-hand {
+      width: 3px;
+      height: 150px;
+      background: #ff4757;
+      transform: translateX(-50%) rotate(0deg);
+      border-radius: 2px 2px 0 0;
+      box-shadow: 0 0 15px rgba(255, 71, 87, 0.7);
+    }
+
+    .center-dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 18px;
+      height: 18px;
+      background: #fff;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      box-shadow: 
+        0 0 0 4px rgba(255,255,255,0.2),
+        0 0 20px rgba(255,255,255,0.4);
+      z-index: 10;
+    }
+
+    .number {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #fff;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    }
+
+    .number span {
+      position: absolute;
+      width: 100%;
+      transform: translateY(-50%);
+    }
+
+    /* Minute markers */
+    .marker {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .marker-line {
+      position: absolute;
+      left: 50%;
+      width: 2px;
+      height: 12px;
+      background: rgba(255,255,255,0.6);
+      transform-origin: center 170px;
+    }
+
+    .marker-line.major {
+      height: 18px;
+      background: rgba(255,255,255,0.9);
+    }
+
+    @media (max-width: 500px) {
+      .clock-container {
+        width: 300px;
+        height: 300px;
+      }
+      .hour-hand   { height: 80px; }
+      .minute-hand { height: 105px; }
+      .second-hand { height: 120px; }
+      .number      { font-size: 1.4rem; }
+    }
