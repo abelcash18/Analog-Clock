@@ -94,26 +94,30 @@
         }
        
         try {
-          const dtf = new Intl.DateTimeFormat('en-US', {
+          // Request full date + time parts to increase chance of receiving numeric parts
+          const dtfParts = new Intl.DateTimeFormat('en-GB', {
             timeZone: timezone,
             hour12: false,
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
             hour: '2-digit',
             minute: '2-digit',
             second: '2-digit'
-          });
+          }).formatToParts(now);
 
-                    const formatted = dtf.format(now);
-          const m = formatted.match(/(\d{1,2}):?(\d{2}):?(\d{2})/);
-          if (m) {
-            return { hours: Number(m[1]), minutes: Number(m[2]), seconds: Number(m[3]), now };
-          }
-          const parts = dtf.formatToParts(now);
-          const p = Object.fromEntries(parts.filter(x => x.type !== 'literal').map(x => [x.type, Number(x.value)]));
+          const p = Object.fromEntries(dtfParts.filter(x => x.type !== 'literal').map(x => [x.type, Number(x.value)]));
           if (p.hour != null && !Number.isNaN(p.hour)) {
             return { hours: p.hour, minutes: p.minute, seconds: p.second, now };
           }
+
+          // As an extra fallback, try parsing the formatted string (some engines may not return parts)
+          const dtf = new Intl.DateTimeFormat('en-US', { timeZone: timezone, hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          const formatted = dtf.format(now);
+          const m = formatted.match(/(\d{1,2}):?(\d{2}):?(\d{2})/);
+          if (m) return { hours: Number(m[1]), minutes: Number(m[2]), seconds: Number(m[3]), now };
         } catch (e) {
-       console.warn('Timezone parsing fallback triggered, using local time as fallback', e);
+          console.warn('Timezone parsing fallback triggered, using local time as fallback', e);
         }
 
         return { hours: now.getHours(), minutes: now.getMinutes(), seconds: now.getSeconds(), now };
