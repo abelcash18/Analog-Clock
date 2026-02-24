@@ -11,12 +11,10 @@
         <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <!-- Dark mode toggle button -->
   <button class="btn btn-outline-light position-absolute top-0 end-0 m-3" id="darkModeToggle">
     <span id="darkModeIcon">🌙</span> Dark Mode
   </button>
 
-  <!-- Timezone selector -->
   <div class="position-absolute top-0 start-0 m-3">
     <select class="form-select form-select-sm bg-transparent text-white border-light" id="timezoneSelect" style="width: auto;">
       <option value="local">Local Time</option>
@@ -33,13 +31,11 @@
   <div class="clock-container shadow-lg">
     <div class="clock-face">
 
-      <!-- Numbers (only 12,3,6,9 for modern minimal look) -->
-      <div class="number" style="transform: rotate(0deg);"><span>12</span></div>
-      <div class="number" style="transform: rotate(90deg);"><span>3</span></div>
-      <div class="number" style="transform: rotate(180deg);"><span>6</span></div>
-      <div class="number" style="transform: rotate(270deg);"><span>9</span></div>
+      <div class="number" ><span>12</span></div>
+      <div class="number" ><span>3</span></div>
+      <div class="number" ><span>6</span></div>
+      <div class="number" ><span>9</span></div>
 
-      <!-- Minute markers - will be generated dynamically via JS -->
       <div class="marker" id="markers"></div>
 
       <div class="hand hour-hand"   id="hour"></div>
@@ -50,10 +46,8 @@
     </div>
   </div>
 
-  <!-- Digital time display -->
   <div class="text-center mt-4 fs-4" id="digital"></div>
 
-  <!-- Tick sound audio element -->
   <audio id="tick-sound" preload="auto">
     <source src="data:audio/wav;base64,UklGRl9vT1910IBAAAAABAAEAQB8XQVZFZmAAEAfAAABAAgAZGF0YU" type="audio/wav">
   </audio>
