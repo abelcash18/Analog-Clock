@@ -1,145 +1,333 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-image: url();
+}
+
 body {
-      min-height: 100vh;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      color: #fff;
-      overflow: hidden;
-      transition: background 0.5s ease;
-    }
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+  color: #fff;
+  overflow: hidden;
+  transition: background 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
+}
 
-    body.light-mode {
-      background: linear-gradient(135deg, #89f7fe, #66a6ff);
-    }
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.03) 0px,
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 2px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.02) 0px,
+      rgba(255, 255, 255, 0.02) 1px,
+      transparent 1px,
+      transparent 2px
+    ),
+    radial-gradient(
+      ellipse at 20% 30%,
+      rgba(255, 255, 255, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 70%,
+      rgba(255, 255, 255, 0.06) 0%,
+      transparent 50%
+    );
+  pointer-events: none;
+  z-index: 0;
+}
 
+body > * {
+  position: relative;
+  z-index: 1;
+}
 
-    body.dark-mode {
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-    }
+body.light-mode {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
 
-    .clock-container {
-      position: relative;
-      width: 380px;
-      height: 380px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
-      border-radius: 50%;
-      box-shadow: 
-        0 8px 32px rgba(0, 0, 0, 0.45),
-        inset 0 0 20px rgba(255, 255, 255, 0.12);
-      -webkit-backdrop-filter: blur(12px);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      padding: 20px;
-    }
+body.light-mode::before {
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.08) 0px,
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px,
+      transparent 2px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.06) 0px,
+      rgba(255, 255, 255, 0.06) 1px,
+      transparent 1px,
+      transparent 2px
+    ),
+    radial-gradient(
+      ellipse at 20% 30%,
+      rgba(255, 255, 255, 0.15) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 70%,
+      rgba(255, 255, 255, 0.12) 0%,
+      transparent 50%
+    );
+}
 
-    .clock-face {
-      width: 100%;
-      height: 100%;
-     
-      position: relative;
-      background: transparent;
-    }
+body.dark-mode {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
 
-    .hand {
-      position: absolute;
-      bottom: 50%;
-      left: 50%;
-      transform-origin: bottom center;
-      border-radius: 10px;
-      transition: transform 0.08s cubic-bezier(0.4, 2.0, 0.2, 1.0); /* smooth overshoot */
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    }
+body.dark-mode::before {
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.02) 0px,
+      rgba(255, 255, 255, 0.02) 1px,
+      transparent 1px,
+      transparent 2px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.015) 0px,
+      rgba(255, 255, 255, 0.015) 1px,
+      transparent 1px,
+      transparent 2px
+    ),
+    radial-gradient(
+      ellipse at 20% 30%,
+      rgba(255, 255, 255, 0.05) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 70%,
+      rgba(100, 150, 255, 0.04) 0%,
+      transparent 50%
+    );
+}
 
-    .hour-hand {
-      width: 8px;
-      height: 100px;
-      background: linear-gradient(to top, #ff6b6b, #feca57);
-      transform: translateX(-50%) rotate(-90deg);
-      border-radius: 4px 4px 0 0;
-    }
+.clock-container {
+  position: relative;
+  width: 420px;
+  height: 420px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05));
+  border-radius: 50%;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 0 20px rgba(255, 255, 255, 0.2),
+    0 0 100px rgba(102, 126, 234, 0.3);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  animation: float 3s ease-in-out infinite;
+}
 
-    .minute-hand {
-      width: 6px;
-      height: 130px;
-      background: linear-gradient(to top, #4facfe, #00f2fe);
-      transform: translateX(-50%) rotate(-90deg);
-      border-radius: 3px 3px 0 0;
-    }
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
 
-    .second-hand {
-      width: 3px;
-      height: 150px;
-      background: #ff4757;
-      transform: translateX(-50%) rotate(-90deg);
-      border-radius: 2px 2px 0 0;
-      box-shadow: 0 0 15px rgba(255, 71, 87, 0.7);
-    }
+.clock-face {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  background: transparent;
+}
 
-    .center-dot {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 18px;
-      height: 18px;
-      background: #fff;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      box-shadow: 
-        0 0 0 4px rgba(255,255,255,0.2),
-        0 0 20px rgba(255,255,255,0.4);
-      z-index: 10;
-    }
+.hand {
+  position: absolute;
+  bottom: 50%;
+  left: 50%;
+  transform-origin: bottom center;
+  border-radius: 10px;
+  transition: transform 0.05s linear;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
 
-    .number {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform-origin: center center;
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #fff;
-      text-shadow: 0 2px 6px rgba(0,0,0,0.5);
-      pointer-events: none;
-    }
+.hour-hand {
+  width: 9px;
+  height: 110px;
+  background: linear-gradient(to top, #ff6b6b, #ff8e8e);
+  transform: translateX(-50%) rotate(0deg);
+  border-radius: 5px 5px 0 0;
+  z-index: 5;
+}
 
-    .number span {
-      display: inline-block;
-      transform: translate(-50%, -50%);
-    }
+.minute-hand {
+  width: 7px;
+  height: 145px;
+  background: linear-gradient(to top, #4facfe, #00f2fe);
+  transform: translateX(-50%) rotate(0deg);
+  border-radius: 4px 4px 0 0;
+  z-index: 6;
+}
 
-     #numbers { position: absolute; inset: 0; pointer-events: none; }
+.second-hand {
+  width: 3px;
+  height: 160px;
+  background: linear-gradient(to top, #ff4757, #ff6b7a);
+  transform: translateX(-50%) rotate(0deg);
+  border-radius: 2px 2px 0 0;
+  box-shadow: 0 0 20px rgba(255, 71, 87, 0.8);
+  z-index: 4;
+}
 
-        .timezone-select { width: auto; min-width: 140px; }
+.center-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 22px;
+  height: 22px;
+  background: linear-gradient(135deg, #fff 0%, #e8e8e8 100%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 
+    0 0 0 6px rgba(255,255,255,0.25),
+    0 0 30px rgba(255,255,255,0.6),
+    inset -2px -2px 5px rgba(0,0,0,0.3);
+  z-index: 11;
+}
 
-    .marker {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-    }
+.number {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 3px 8px rgba(0,0,0,0.6);
+  pointer-events: none;
+  letter-spacing: 0.5px;
+}
 
-    .marker-line {
-      position: absolute;
-      left: 50%;
-      width: 2px;
-      height: 12px;
-      background: rgba(255,255,255,0.6);
-      transform-origin: center 170px;
-    }
+.number span {
+  display: inline-block;
+  transform: translate(-50%, -50%);
+}
 
-    .marker-line.major {
-      height: 18px;
-      background: rgba(255,255,255,0.9);
-    }
+#numbers { 
+  position: absolute; 
+  inset: 0; 
+  pointer-events: none;
+}
 
-    @media (max-width: 500px) {
-      .clock-container {
-        width: 300px;
-        height: 300px;
-      }
-      .hour-hand   { height: 80px; }
-      .minute-hand { height: 105px; }
-      .second-hand { height: 120px; }
-      .number      { font-size: 1.4rem; }
-    }
+.marker {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.marker-line {
+  position: absolute;
+  left: 50%;
+  width: 2px;
+  height: 14px;
+  background: rgba(255,255,255,0.7);
+  transform-origin: center 190px;
+  border-radius: 1px;
+}
+
+.marker-line.major {
+  height: 20px;
+  background: rgba(255,255,255,0.95);
+  width: 3px;
+}
+
+#digital {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: 2px;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  font-family: 'Courier New', monospace;
+}
+
+.timezone-select { 
+  width: auto; 
+  min-width: 140px; 
+  font-size: 0.85rem;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  color: #fff !important;
+}
+
+.timezone-select option {
+  color: #333;
+  background: #fff;
+}
+
+.controls-top-left {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
+}
+
+.controls-top-right {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 100;
+  display: flex;
+  gap: 8px;
+}
+
+.btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  color: #fff !important;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+}
+
+.btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: #fff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#format12HToggle.active {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: #fff !important;
+}
+
+@media (max-width: 600px) {
+  .clock-container {
+    width: 340px;
+    height: 340px;
+  }
+  .hour-hand { height: 90px; }
+  .minute-hand { height: 120px; }
+  .second-hand { height: 135px; }
+  .number { font-size: 1.1rem; }
+  #digital { font-size: 1.1rem; bottom: 30px; }
+  .controls-top-left { top: 10px; left: 10px; }
+  .controls-top-right { top: 10px; right: 10px; gap: 4px; }
+  .btn-outline-light { padding: 4px 8px; font-size: 0.75rem; }
+}

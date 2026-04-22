@@ -12,13 +12,9 @@
         <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <button class="btn btn-outline-light position-absolute top-0 end-0 m-3" id="darkModeToggle">
-    <span id="darkModeIcon">🌙</span> Dark Mode
-  </button>
-
-  <div class="position-absolute top-0 start-0 m-3">
+  <div class="controls-top-left">
     <label for="timezoneSelect" class="visually-hidden">Timezone</label>
-    <select class="form-select form-select-sm bg-transparent text-black border-light timezone-select" id="timezoneSelect">
+    <select class="form-select form-select-sm bg-transparent text-white border-light timezone-select" id="timezoneSelect">
       <option value="local">Local Time</option>
       <option value="America/New_York">New York (EST)</option>
       <option value="America/Los_Angeles">Los Angeles (PST)</option>
@@ -32,6 +28,17 @@
       <option value="Australia/Sydney">Sydney (AEST)</option>
     </select>
   </div>
+
+  <div class="controls-top-right">
+    <button class="btn btn-sm btn-outline-light" id="format12HToggle" title="Toggle 12/24 hour format">
+      24H
+    </button>
+    <button class="btn btn-sm btn-outline-light" id="darkModeToggle" title="Toggle dark mode">
+      <span id="darkModeIcon">🌙</span>
+    </button>
+  </div>
+
+  <div class="position-absolute top-0 start-0 m-3" style="display:none;"></div>
 
   <div class="clock-container shadow-lg">
     <div class="clock-face">
@@ -48,13 +55,9 @@
       </div>
   </div>
 
-  <div class="text-center mt-4 fs-4" id="digital"></div>
+  <div id="digital"></div>
 
-  <audio id="tick-sound" preload="auto">
-    <source src="data:audio/wav;base64,UklGRl9vT1910IBAAAAABAAEAQB8XQVZFZmAAEAfAAABAAgAZGF0YU" type="audio/wav">
-  </audio>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" 
           integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" 
           crossorigin="anonymous"></script>
           <script src="index.js"></script>
