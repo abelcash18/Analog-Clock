@@ -123,6 +123,25 @@ body.dark-mode::before {
     );
 }
 
+     .cute-footer{
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.1);
+    padding: 12px 24px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+ }
+ .cute-footer p{
+    margin: 0;
+    color: #191919;
+    font-size: 0.9rem;
+    text-align: center;
+    letter-spacing: 1px;
+ } 
+
 .clock-container {
   position: relative;
   width: 420px;
